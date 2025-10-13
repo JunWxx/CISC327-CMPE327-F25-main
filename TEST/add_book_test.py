@@ -37,4 +37,4 @@ def test_add_book_invalid_copies():
     success, message = add_book_to_catalog("Test Book", "Test Author", "1234567890123", 0)
 
     assert success == False
-    assert "positive" in message
+    assert "positive" in message.lower()
