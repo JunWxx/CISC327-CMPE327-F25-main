@@ -14,7 +14,7 @@ def test_return_valid_input():
     success, message = return_book_by_patron("123456", 1)
 
     assert success == True
-    assert "successfully returned" in message.lower()
+    assert "book returned successfully" in message.lower()
 
 
 def test_return_invalid_patron_id():
