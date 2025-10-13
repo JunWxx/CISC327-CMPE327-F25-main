@@ -5,26 +5,28 @@ from library_service import (
 
 
 def test_patron_status_valid():
-    success, message = get_patron_status_report("123456")
+    report = get_patron_status_report("123456")
 
-    assert success is True
-    assert "borrowed" in message.lower()
-    assert "due" in message.lower()
-    assert "late fee" in message.lower()
-    assert "history" in message.lower()
+
+    assert isinstance(report, dict)
+    assert "borrow_count" in report
+    assert "currently_borrowed" in report
+    assert "total_late_fees" in report
 
 
 def test_patron_status_no_borrows():
-    success, message = get_patron_status_report("654321")
+    report = get_patron_status_report("654321")
 
-    assert success is True
-    assert "0" in message
-    assert "borrowed" in message.lower()
-    assert "late fee" in message.lower()
+   
+    assert isinstance(report, dict)
+    assert "borrow_count" in report
+    assert report["borrow_count"] == 0
+    assert "total_late_fees" in report
 
 
 def test_patron_status_invalid_patron_id():
-    success, message = get_patron_status_report("12A45A")
+    report = get_patron_status_report("12A45A")
 
-    assert success is False
-    assert "6-digit" in message
+    assert isinstance(report, dict)
+    assert "error" in report
+    assert ("6-digit" in report["error"]) or ("6 digits" in report["error"])
