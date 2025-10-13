@@ -7,7 +7,6 @@ from library_service import (
 def test_patron_status_valid():
     report = get_patron_status_report("123456")
 
-
     assert isinstance(report, dict)
     assert "borrow_count" in report
     assert "currently_borrowed" in report
@@ -17,7 +16,6 @@ def test_patron_status_valid():
 def test_patron_status_no_borrows():
     report = get_patron_status_report("654321")
 
-   
     assert isinstance(report, dict)
     assert "borrow_count" in report
     assert report["borrow_count"] == 0
@@ -29,4 +27,5 @@ def test_patron_status_invalid_patron_id():
 
     assert isinstance(report, dict)
     assert "error" in report
-    assert ("6-digit" in report["error"]) or ("6 digits" in report["error"])
+    assert "invalid patron" in report["error"].lower()
+
