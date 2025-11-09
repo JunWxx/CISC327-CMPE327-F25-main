@@ -1,5 +1,5 @@
 import pytest
-from library_service import borrow_book_by_patron
+from services.library_service import borrow_book_by_patron
 
 from datetime import datetime, timedelta
 import database as db
